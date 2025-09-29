@@ -63,4 +63,32 @@ import expr.{ExpressionTree, Constant, Plus, Minus, Times, Divide, Power, UnaryM
   // Expression 11: Plus(Times(Constant(2), Power(Constant(3), Constant(2))), Divide(Constant(8), UnaryMinus(Constant(2))))
   println(expressionToString(exprs(10)))        // Output: "((2.0) * ((3.0) ** (2.0))) + ((8.0) / (-(2.0)))"
   println(expressionToPrettyString(exprs(10)))  // Output: "2.0 * 3.0 ** 2.0 + 8.0 / -2.0"
+
+  // Expression 12: Constant only
+  println(expressionToString(Constant(42)))         // Output: "(42.0)"
+  println(expressionToPrettyString(Constant(42)))   // Output: "42.0"
+
+  // Expression 13: Nested Plus and Minus
+  val expr13 = Plus(Minus(Constant(10), Constant(3)), Plus(Constant(2), Constant(5)))
+  println(expressionToString(expr13))               // Output: "((10.0) - (3.0)) + ((2.0) + (5.0))"
+  println(expressionToPrettyString(expr13))         // Output: "(10.0 - 3.0) + (2.0 + 5.0)"
+
+  // Expression 14: Nested Times and Divide
+  val expr14 = Divide(Times(Constant(6), Constant(7)), Constant(2))
+  println(expressionToString(expr14))               // Output: "((6.0) * (7.0)) / (2.0)"
+  println(expressionToPrettyString(expr14))         // Output: "6.0 * 7.0 / 2.0"
+
+  // Expression 15: Power with UnaryMinus
+  val expr15 = Power(UnaryMinus(Constant(3)), Constant(2))
+  println(expressionToString(expr15))               // Output: "(-(3.0)) ** (2.0)"
+  println(expressionToPrettyString(expr15))         // Output: "-3.0 ** 2.0"
+
+  // Expression 16: Complex nesting
+  val expr16 = Plus(
+    Times(Constant(2), Power(Minus(Constant(8), Constant(3)), Constant(2))),
+    Divide(UnaryMinus(Constant(9)), Plus(Constant(1), Constant(2)))
+  )
+  println(expressionToString(expr16))               // Output: "((2.0) * (((8.0) - (3.0)) ** (2.0))) + ((-(9.0)) / ((1.0) + (2.0)))"
+  println(expressionToPrettyString(expr16))         // Output: "2.0 * (8.0 - 3.0) ** 2.0 + -9.0 / (1.0 + 2.0)"
+
 }
